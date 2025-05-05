@@ -16,16 +16,16 @@ const TrainingsGrid = () => {
     const [quickFilterText, setQuickFilterText] = useState("");
 
     const columnDefs = [
-        { headerName:  "Customer", field: "customer"},
-        { headerName:  "Duration (min)", field: "duration"},
-        { headerName:  "Activity", field: "activity"},
-        { headerName:  "Date", field: "date"},
+        { headerName:  "Customer", field: "customer", filter: true},
+        { headerName:  "Duration (min)", field: "duration", filter: true},
+        { headerName:  "Activity", field: "activity", filter: true},
+        { headerName:  "Date", field: "date", filter: true},
     ]
 
     const defaultColDef = useMemo(() => ({
         sortable: true,
         filter: true,
-        rezizable: true,
+        resizable: true,
         flex: 1,
         minWidth: 100,
     }), [])
@@ -57,13 +57,14 @@ const TrainingsGrid = () => {
 
     return (
         <div className="p-4">
+            <div className="ag-theme-alpine" style={{ height: 600, width: '100%' }}>
             <input
                 type="text"
                 placeholder="Search Trainings..."
                 className="mb-4 p-2 border rounded "
+                value={quickFilterText}
                 onChange={(e) => setQuickFilterText(e.target.value)}
             />
-            <div className="ag-theme-alpine" style={{ height: 600, width: '100%' }}>
                 <AgGridReact 
                     columnDefs={columnDefs}
                     rowData={trainings}
@@ -72,7 +73,6 @@ const TrainingsGrid = () => {
                     paginationPageSize={10}
                     animateRows={true}
                     enableSorting={true}
-                    enableFilter={true}
                     quickFilterText={quickFilterText}
                 />
             </div>

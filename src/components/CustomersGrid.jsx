@@ -13,6 +13,7 @@ const CustomersGrid = () => {
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [quickFilterText, setQuickFilterText] = useState("");
 
 
      const columnDefs = [
@@ -28,7 +29,7 @@ const CustomersGrid = () => {
     const defaultColDef = useMemo(() => ({
         sortable: true,
         filter: true,
-        rezizable: true,
+        resizable: true,
         flex: 1,
         minWidth: 100,
     }), []);
@@ -64,9 +65,14 @@ const CustomersGrid = () => {
 
     return (
          <div className="p-4">
-            
-            
             <div className="ag-theme-alpine" style={{ height: 600, width: '100%' }}>
+               <input
+                type="text"
+                placeholder="Search Trainings..."
+                className="mb-4 p-2 border rounded "
+                value={quickFilterText}
+                onChange={(e) => setQuickFilterText(e.target.value)}
+            />
                 <AgGridReact
                     columnDefs={columnDefs}
                     rowData={customers}
@@ -75,7 +81,7 @@ const CustomersGrid = () => {
                     paginationPageSize={10}
                     animateRows={true}
                     enableSorting={true}
-                    enableFilter={true}
+                    
                 />
             </div>
         </div>
