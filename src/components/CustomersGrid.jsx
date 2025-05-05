@@ -5,6 +5,10 @@ import { ModuleRegistry, ClientSideRowModelModule } from "ag-grid-community";
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
+// this component uses newest ag grid version and it is used in the customers page
+// the data is fetched from the customersService and displayed in a grid format
+
+
 const CustomersGrid = () => {
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -12,13 +16,13 @@ const CustomersGrid = () => {
 
 
      const columnDefs = [
-        { headerName: "First Name", field: "firstname", sortable: true, filter: true, width: 150 },
-        { headerName: "Last Name", field: "lastname", sortable: true, filter: true, width: 150 },
-        { headerName: "Street Address", field: "streetaddress", sortable: true, filter: true, width: 200 },
-        { headerName: "Postcode", field: "postcode", sortable: true, filter: true, width: 120 },
-        { headerName: "City", field: "city", sortable: true, filter: true, width: 150 },
-        { headerName: "Email", field: "email", sortable: true, filter: true, width: 200 },
-        { headerName: "Phone", field: "phone", sortable: true, filter: true, width: 150 },
+        { headerName: "First Name", field: "firstname"},
+        { headerName: "Last Name", field: "lastname"},
+        { headerName: "Street Address", field: "streetaddress"},
+        { headerName: "Postcode", field: "postcode"},
+        { headerName: "City", field: "city"},
+        { headerName: "Email", field: "email" },
+        { headerName: "Phone", field: "phone" },
     ];
 
     const defaultColDef = useMemo(() => ({
@@ -31,6 +35,8 @@ const CustomersGrid = () => {
 
     useEffect(() => {
 
+        // Fetch customers data from the API 
+        // using the getCustomers function from the customersService
         const fetchCustomers = async () => {
             try {
                 setLoading(true);
@@ -46,16 +52,19 @@ const CustomersGrid = () => {
         fetchCustomers();
     }, []);
 
+    // Check if the data is still loading or...
     if (loading) {
         return <div className="p-4">Loading...</div>;
     }
 
+    // ...if there was an error
     if (error) {
         return <div className="p-4 text-red-500">{error}</div>;
     }
 
     return (
          <div className="p-4">
+            
             
             <div className="ag-theme-alpine" style={{ height: 600, width: '100%' }}>
                 <AgGridReact

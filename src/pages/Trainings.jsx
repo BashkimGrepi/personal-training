@@ -1,10 +1,10 @@
-
+import TrainingsGrid from "../components/TrainingsGrid";
 
 function Trainings() {
   return (
-    <div className="container">
-      <h1>Trainings</h1>
-      <p>Welcome to the Trainings page!</p>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Trainings</h1>
+          <TrainingsGrid />
     </div>
   );
 }
