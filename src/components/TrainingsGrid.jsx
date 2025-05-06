@@ -2,12 +2,15 @@ import { getTrainings } from "../services/TrainingsService";
 import { useEffect, useMemo, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { ModuleRegistry, ClientSideRowModelModule } from "ag-grid-community";
+import { deleteTraining } from "../services/TrainingsService";
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 
 // this component is for using the getTrainings method which fetches data from the api
 // This component is used in trainings page
+// this component also has a delete button to delte the training
+//
 
 const TrainingsGrid = () => {
     const [trainings, setTrainings] = useState([]);
@@ -15,11 +18,32 @@ const TrainingsGrid = () => {
     const [error, setError] = useState(null);
     const [quickFilterText, setQuickFilterText] = useState("");
 
+
+
+    const ActionButtons = ({ data }) => (
+        <div className="flex gap-3">
+           
+            <button
+            className="text-red-600 underline hover:text-red-800"
+            onClick={() => handleDeleteClick(data.id)}
+            >
+            Delete
+            </button>
+        </div>
+    );
+
+
     const columnDefs = [
         { headerName:  "Customer", field: "customer", filter: true},
         { headerName:  "Duration (min)", field: "duration", filter: true},
         { headerName:  "Activity", field: "activity", filter: true},
-        { headerName:  "Date", field: "date", filter: true},
+        { headerName: "Date", field: "date", filter: true },
+        {
+            headerName: "Actions",
+            cellRenderer: ActionButtons,
+            sortable: false,
+            filter: false,
+        },
     ]
 
     const defaultColDef = useMemo(() => ({
@@ -46,6 +70,20 @@ const TrainingsGrid = () => {
         }
         fetchTrainingsAndCustomers();
     }, []);
+
+    const handleDeleteClick = async (id) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this training?");
+        if (!confirmDelete) return;
+
+        try {
+            await deleteTraining(id);
+            setTrainings((prev) => prev.filter((training) => training.id !== id));//päivittä' tilan
+            alert("Training deleted");
+            getTrainings(); // päivitä lista
+        } catch (error) {
+            alert("Failed to delete training");
+        }
+    };
 
     if (loading) {
         return <div className="p-4">Loading...</div>;

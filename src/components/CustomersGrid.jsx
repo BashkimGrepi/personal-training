@@ -8,8 +8,9 @@ import { deleteCustomer } from "../services/customersService";
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
-// this component uses newest ag grid version and it is used in the customers page
+// this component uses newest ag grid version and it is rendered in the customers page
 // the data is fetched from the customersService and displayed in a grid format
+//in addition this page has the functionality for deleting the customer
 
 
 const CustomersGrid = () => {

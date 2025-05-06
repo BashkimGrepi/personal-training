@@ -26,3 +26,28 @@ export const getTrainings = async () => {
     }
 }
 
+//create new training
+export const createTraining = async (trainingData) => {
+    try {
+        const response = await axios.post(`${API_URL}/trainings`, trainingData, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error creating a training: ", error)
+        throw error;
+    }
+}
+
+//delete training by id
+export const deleteTraining = async (id) => {
+    try {
+        const response = await axios.delete(`${API_URL}/trainings/${id}`);
+    } catch (error) {
+        console.error(`Error deleting training with ID ${id}:`, error);
+        throw error;
+    }
+};
+

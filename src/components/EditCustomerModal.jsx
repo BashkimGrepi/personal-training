@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { updateCustomer } from "../services/customersService";
 
+
+//this component is for editing the customer. When pressed edit button it opens a 
+//modal where you can change the info
+
 function EditCustomerModal({ isOpen, setIsOpen, customer, onUpdated }) {
     const [formData, setFormData] = useState({ ...customer });
 
