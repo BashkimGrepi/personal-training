@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { createCustomer } from '../services/customersService';
+import { PlusIcon } from 'lucide-react';
 
 function AddCustomerModal() {
 
@@ -46,7 +47,8 @@ function AddCustomerModal() {
       <button
         className="bg-blue-600 text-white px-6 py-2 rounded font-medium hover:bg-blue-700 transition"
         onClick={() => setIsOpen(true)}
-      >
+          >
+        <PlusIcon className="inline mr-2" /> {/* Icon from lucide-react */}
         Add Customer
       </button>
 

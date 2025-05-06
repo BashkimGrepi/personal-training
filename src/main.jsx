@@ -6,7 +6,9 @@ import { createHashRouter } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import Customers from './pages/Customers.jsx'
 import Trainings from './pages/Trainings.jsx'
+import Calendar from './pages/Calendar.jsx'
 import { RouterProvider } from 'react-router-dom'
+
 
 const router = createHashRouter([
   {
@@ -24,6 +26,10 @@ const router = createHashRouter([
       {
         path: '/trainings',
         element: <Trainings />,
+      },
+      {
+        path: '/calendar',
+        element: <Calendar />,
       },
     ],
   },

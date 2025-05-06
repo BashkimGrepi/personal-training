@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { CalendarDays, DumbbellIcon, PersonStandingIcon } from "lucide-react";
 
 function NavBar() {
   return (
@@ -14,7 +15,7 @@ function NavBar() {
                 : "text-gray-700 hover:text-blue-600 px-3 py-1 flex items-center gap-1"
             }
           >
-            <span></span>
+            <span> <PersonStandingIcon /> </span>
             Customers
           </NavLink>
           <NavLink
@@ -25,8 +26,19 @@ function NavBar() {
                 : "text-gray-700 hover:text-blue-600 px-3 py-1 flex items-center gap-1"
             }
           >
-            <span></span>
+            <span><DumbbellIcon /> </span>
             Trainings
+          </NavLink>
+          <NavLink
+            to="/calendar"
+            className={({ isActive }) =>
+              isActive
+                ? "text-white bg-blue-600 px-3 py-1 rounded-md flex items-center gap-1"
+                : "text-gray-700 hover:text-blue-600 px-3 py-1 flex items-center gap-1"
+            }
+          >
+            <span><CalendarDays /> </span>
+            Calendar
           </NavLink>
         </div>
       </div>

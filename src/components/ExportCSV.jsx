@@ -1,4 +1,5 @@
 import { CSVLink } from "react-csv"
+import { FileIcon } from "lucide-react";
 
 function ExportCSV({data}) {
     
@@ -19,7 +20,9 @@ function ExportCSV({data}) {
             headers={headers}
             filename="customers_export.csv"
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+            
         >
+            <FileIcon className="inline mr-2" />
             Export CSV
 
         </CSVLink>
