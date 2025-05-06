@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import ReactModal from 'react-modal';
 import { createCustomer } from '../services/customersService';
 
 function AddCustomerModal() {

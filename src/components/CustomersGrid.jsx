@@ -2,6 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import { getCustomers } from "../services/customersService";
 import { AgGridReact } from "ag-grid-react";
 import { ModuleRegistry, ClientSideRowModelModule } from "ag-grid-community";
+import EditCustomerModal from "./EditCustomerModal";
+import { deleteCustomer } from "../services/customersService";
+
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
@@ -14,7 +17,31 @@ const CustomersGrid = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [quickFilterText, setQuickFilterText] = useState("");
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [selectedCustomer, setSelectedCustomer] = useState(null);
+    
 
+
+    const ActionsRenderer = (props) => {
+    const { data } = props;
+        return (
+        <div className="flex gap-4 items-center justify-center">
+        <button
+            className="text-blue-600 underline hover:text-blue-800"
+            onClick={() => handleEditClick(data)}
+        >
+            Edit
+        </button>
+                
+         <button
+            className="text-red-600 underline hover:text-red-800"
+            onClick={() => handleDeleteClick(data)}
+            >
+            Delete
+        </button>
+    </div>
+    );
+};
 
      const columnDefs = [
         { headerName: "First Name", field: "firstname"},
@@ -23,8 +50,19 @@ const CustomersGrid = () => {
         { headerName: "Postcode", field: "postcode"},
         { headerName: "City", field: "city"},
         { headerName: "Email", field: "email" },
-        { headerName: "Phone", field: "phone" },
+         { headerName: "Phone", field: "phone" },
+         {
+            headerName: "Actions",
+            field: "actions",
+            cellRenderer: ActionsRenderer, 
+            width: 120,
+            sortable: false,
+            filter: false,
+        }
+        
     ];
+
+
 
     const defaultColDef = useMemo(() => ({
         sortable: true,
@@ -63,12 +101,33 @@ const CustomersGrid = () => {
         return <div className="p-4 text-red-500">{error}</div>;
     }
 
+
+    const handleEditClick = (customer) => {
+        console.log("Selected customer:", customer);
+        setSelectedCustomer(customer);
+        setEditModalOpen(true);
+    };
+
+    const handleDeleteClick = async (customer) => {
+        const confirmDelete = window.confirm(`Are you sure you want to delete ${customer.firstname} ${customer.lastname}?`);
+        if (!confirmDelete) return;
+
+        try {
+            await deleteCustomer(customer.id);
+            alert("Customer deleted.");
+            const updated = await getCustomers();
+            setCustomers(updated);
+        } catch (error) {
+            alert("Failed to delete customer");
+            console.error("Delete error:", error);
+        }
+    }
     return (
          <div className="p-4">
             <div className="ag-theme-alpine" style={{ height: 600, width: '100%' }}>
                <input
                 type="text"
-                placeholder="Search Trainings..."
+                placeholder="Search Customers..."
                 className="mb-4 p-2 border rounded "
                 value={quickFilterText}
                 onChange={(e) => setQuickFilterText(e.target.value)}
@@ -82,6 +141,15 @@ const CustomersGrid = () => {
                     animateRows={true}
                     enableSorting={true}
                     
+                    
+                />
+                <EditCustomerModal
+                    isOpen={editModalOpen}
+                    setIsOpen={setEditModalOpen}
+                    customer={selectedCustomer}
+                    onUpdated={() => {
+                        getCustomers().then(setCustomers);
+                    }}
                 />
             </div>
         </div>
