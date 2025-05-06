@@ -6,6 +6,7 @@ import EditCustomerModal from "./EditCustomerModal";
 import { deleteCustomer } from "../services/customersService";
 
 
+
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 // this component uses newest ag grid version and it is rendered in the customers page
@@ -13,8 +14,8 @@ ModuleRegistry.registerModules([ClientSideRowModelModule]);
 //in addition this page has the functionality for deleting the customer
 
 
-const CustomersGrid = () => {
-    const [customers, setCustomers] = useState([]);
+const CustomersGrid = ({customers, setCustomers}) => {
+   
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [quickFilterText, setQuickFilterText] = useState("");
@@ -152,7 +153,9 @@ const CustomersGrid = () => {
                         getCustomers().then(setCustomers);
                     }}
                 />
+                
             </div>
+            
         </div>
     )
 }
