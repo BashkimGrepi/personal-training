@@ -1,0 +1,59 @@
+name: Deploy static content to Pages
+ 
+on:
+  push:
+    branches: ['main']
+ 
+  workflow_dispatch:
+ 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+ 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'npm'
+ 
+      # Remove lockfile to fix issue https://github.com/npm/cli/issues/4828
+      - name: Clean install dependencies
+        run: |
+          rm -rf node_modules
+          rm -f package-lock.json
+          npm install
+ 
+      # Install vitest explicitly
+      - name: Install vitest
+        run: npm install -g vitest
+ 
+      - name: Run jest tests
+        run: npm test
+     
+      - name: Run eslint
+        run: npm run lint
+ 
+      - name: Build
+        run: npx vite build --base=/personal-trainer/
+ 
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+ 
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+ 
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
