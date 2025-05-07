@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createTraining } from "../services/TrainingsService";
 import { API_URL } from "../services/BaseUrlService"
-import { getCustomers } from "../services/customersService";
+import { getCustomers } from "../services/CustomersService";
 
 function AddTrainingModal({ isOpen, setIsOpen, OnTrainingAdded }) {
   const [formData, setFormData] = useState({

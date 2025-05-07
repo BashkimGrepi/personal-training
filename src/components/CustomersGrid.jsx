@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { getCustomers } from "../services/customersService";
+import { getCustomers } from "../services/CustomersService";
 import { AgGridReact } from "ag-grid-react";
 import { ModuleRegistry, ClientSideRowModelModule } from "ag-grid-community";
 import EditCustomerModal from "./EditCustomerModal";
-import { deleteCustomer } from "../services/customersService";
+import { deleteCustomer } from "../services/CustomersService";
 
 
 

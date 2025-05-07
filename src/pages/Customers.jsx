@@ -3,7 +3,7 @@ import AddCustomerModal from "../components/AddCustomerModal";
 import EditCustomerModal from "../components/EditCustomerModal";
 import ExportCSV from "../components/ExportCSV";
 import { useEffect, useState } from "react";
-import { getCustomers } from "../services/customersService";
+import { getCustomers } from "../services/CustomersService";
 
 const Customers = () => {
 
