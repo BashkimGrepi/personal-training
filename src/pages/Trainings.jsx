@@ -25,7 +25,7 @@ function Trainings() {
         OnTrainingAdded={getTrainings}
       />
 
-      <TrainingsGrid trainings={ Trainings } />
+      <TrainingsGrid  />
     </div>
   );
 }
