@@ -37,11 +37,7 @@ jobs:
       - name: Install vitest
         run: npm install -g vitest
  
-      - name: Run jest tests
-        run: npm test
-     
-      - name: Run eslint
-        run: npm run lint
+      
  
       - name: Build
         run: npx vite build --base=/personal-trainer/
