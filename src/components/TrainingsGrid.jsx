@@ -4,6 +4,7 @@ import { AgGridReact } from "ag-grid-react";
 import { ModuleRegistry, ClientSideRowModelModule } from "ag-grid-community";
 import { deleteTraining } from "../services/TrainingsService";
 
+
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 

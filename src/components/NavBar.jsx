@@ -5,7 +5,7 @@ function NavBar() {
   return (
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        <h1 className="text-xl font-semibold text-gray-800">Personal Training</h1>
+        <NavLink className="text-xl font-semibold text-gray-800"> <h1>Personal Training</h1></NavLink>
         <div className="flex space-x-4">
           <NavLink
             to="/customers"

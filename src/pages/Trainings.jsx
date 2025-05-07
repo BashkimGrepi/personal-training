@@ -2,6 +2,7 @@ import { useState } from "react";
 import AddTrainingModal from "../components/AddTrainingModal";
 import TrainingsGrid from "../components/TrainingsGrid";
 import { getTrainings } from "../services/TrainingsService";
+import { PlusIcon } from "lucide-react";
 
 function Trainings() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -14,6 +15,7 @@ function Trainings() {
         onClick={() => setModalOpen(true)}
         className="bg-blue-600 text-white px-4 py-2 rounded mb-4"
       >
+        <PlusIcon className="w-4 h-4 inline mr-1" />
         Add Training
       </button>
 
