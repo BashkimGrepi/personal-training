@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createCustomer } from '../services/customersService';
+import { createCustomer } from '../services/CustomersService';
 import { PlusIcon } from 'lucide-react';
 
 function AddCustomerModal() {

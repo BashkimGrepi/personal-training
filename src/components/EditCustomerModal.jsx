@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { updateCustomer } from "../services/customersService";
+import { updateCustomer } from "../services/CustomersService";
 
 
 //this component is for editing the customer. When pressed edit button it opens a 
